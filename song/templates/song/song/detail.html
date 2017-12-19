@@ -1,0 +1,18 @@
+{% extends "song/base.html" %}
+{% load static %}
+
+{% block title %}
+    {% if songlist %}{{ songlist.title }}{% else %}Songs{% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="song-detail">
+        <img src="{% if song.image %}{{ song.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+        <h1>{{ song.name }}</h1>
+        <h2><a href="{{ song.songlist.get_absolute_url }}">{{ song.songlist }}</a></h2>
+        <p class="price">简介：{{ song.price }}</p>
+            {{ song.description|linebreaks }}
+        </form>
+    </div>
+{% endblock %}
+

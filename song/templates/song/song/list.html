@@ -1,0 +1,33 @@
+{% extends "song/base.html" %}
+{% load static %}
+
+{% block title %}
+    {% if songlist %}{{ songlist.name }}{% else %}Songs{% endif %}
+{% endblock %}
+
+{% block content %}
+    <div id="sidebar">
+        <h3>Songlists</h3>
+        <ul>
+            <li {% if not songlist %}class="selected"{% endif %}>
+                <a href="{% url "song:song_list" %}">All</a>
+            </li>
+        {% for c in songlists %}
+            <li {% if songlist.slug == c.slug %}class="selected"{% endif %}>
+                <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+    <div id="main" class="song-list">
+        <h1>{% if songlist %}{{ songlist.name }}{% else %}Songs{% endif %}</h1>
+        {% for song in songs %}
+            <div class="item">
+                <a href="{{ song.get_absolute_url }}">
+                    <img src="{% if song.image %}{{ song.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+                </a>
+                <a href="{{ song.get_absolute_url }}">{{ song.name }}</a><br>          
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %} 

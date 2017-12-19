@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>{% block title %}My music{% endblock %}</title>
+    <link href="{% static "song/base.css" %}" rel="stylesheet">
+</head>
+<body>
+    <div id="header">
+        <a href="/" class="logo">My music</a>
+    </div>
+    <div id="subheader">
+        <div class="cart">
+          {% with total_items=cart|length %}
+            {% if cart|length > 0 %}
+              Your songlist:
+              <a href="{% url "cart:cart_detail" %}">
+                {{ total_items }} item{{ total_items|pluralize }},
+                
+              </a>
+            {% else %}
+              Your songlist is empty.
+            {% endif %}
+          {% endwith %}
+        </div>
+    </div>
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>
